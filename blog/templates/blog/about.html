@@ -1,0 +1,90 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}Обо мне - ZINGIEV{% endblock %}
+
+{% block content %}
+<div class="flex flex-col md:flex-row gap-8">
+    <!-- Main Content Area -->
+    <div class="md:w-2/3">
+        <article class="bg-dark-secondary rounded-lg p-6">
+            <div class="flex flex-col md:flex-row items-center md:items-start gap-6 mb-8">
+                {% if profile.avatar %}
+                <img src="{{ profile.avatar.url }}" alt="{{ profile.user.username }}" class="w-32 h-32 rounded-full">
+                {% endif %}
+                <div>
+                    <h1 class="text-3xl font-bold mb-2">{{ profile.user.get_full_name|default:profile.user.username }}</h1>
+                    {% if profile.bio %}
+                    <div class="prose prose-invert max-w-none">
+                        {{ profile.bio|safe }}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Skills -->
+            {% if profile.skills.all %}
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold mb-4">Навыки</h2>
+                <div class="flex flex-wrap gap-2">
+                    {% for skill in profile.skills.all %}
+                    <span class="px-3 py-1 bg-dark-primary text-gray-400 rounded-full">
+                        {{ skill.name }}
+                    </span>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Social Links -->
+            <div class="flex flex-wrap gap-4">
+                {% if profile.github_url %}
+                <a href="{{ profile.github_url }}" target="_blank" class="text-gray-400 hover:text-blue-400 transition">
+                    GitHub →
+                </a>
+                {% endif %}
+                {% if profile.linkedin_url %}
+                <a href="{{ profile.linkedin_url }}" target="_blank" class="text-gray-400 hover:text-blue-400 transition">
+                    LinkedIn →
+                </a>
+                {% endif %}
+                {% if profile.twitter_url %}
+                <a href="{{ profile.twitter_url }}" target="_blank" class="text-gray-400 hover:text-blue-400 transition">
+                    Twitter →
+                </a>
+                {% endif %}
+            </div>
+        </article>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="md:w-1/3">
+        <!-- Contact Section -->
+        <div class="bg-dark-secondary rounded-lg p-6 mb-6">
+            <h3 class="text-xl font-semibold mb-4">Связаться со мной</h3>
+            <p class="text-gray-400 mb-4">Если у вас есть вопросы или предложения, не стесняйтесь связаться со мной через социальные сети или по электронной почте.</p>
+            <a href="mailto:{{ profile.user.email }}" class="text-blue-400 hover:text-blue-300">
+                {{ profile.user.email }}
+            </a>
+        </div>
+
+        <!-- Latest Posts -->
+        <div class="bg-dark-secondary rounded-lg p-6">
+            <h3 class="text-xl font-semibold mb-4">Последние статьи</h3>
+            <div class="space-y-4">
+                {% for post in profile.user.post_set.all|slice:":3" %}
+                <div class="flex items-center space-x-4">
+                    {% if post.featured_image %}
+                    <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" class="w-16 h-16 object-cover rounded">
+                    {% endif %}
+                    <div>
+                        <h4 class="font-semibold">{{ post.title }}</h4>
+                        <p class="text-sm text-gray-400">{{ post.created_at|date:"d F Y" }}</p>
+                        <a href="{% url 'blog:article_detail' post.slug %}" class="text-blue-400 hover:text-blue-300 text-sm">Читать →</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

@@ -1,0 +1,14 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}404 - Страница не найдена{% endblock %}
+
+{% block content %}
+<div class="flex flex-col items-center justify-center min-h-[60vh] text-center">
+    <h1 class="text-6xl font-bold text-blue-500 mb-4">404</h1>
+    <h2 class="text-2xl font-semibold mb-4">Страница не найдена</h2>
+    <p class="text-gray-400 mb-8">Извините, запрашиваемая страница не существует или была перемещена.</p>
+    <a href="{% url 'blog:home' %}" class="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">
+        Вернуться на главную
+    </a>
+</div>
+{% endblock %} 

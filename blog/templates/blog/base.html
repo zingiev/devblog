@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ZINGIEV{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            primary: '#1a1a1a',
+                            secondary: '#2d2d2d',
+                            accent: '#3b82f6'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-dark-primary text-gray-100 min-h-full flex flex-col">
+    <!-- Header -->
+    <header class="bg-dark-secondary border-b border-gray-800">
+        <nav class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <a href="{% url 'blog:home' %}">
+                    <div class="text-2xl font-bold text-blue-500">ZINGIEV</div>
+                </a>
+                
+                <!-- Mobile menu button -->
+                <button id="mobile-menu-button" class="md:hidden text-gray-400 hover:text-white focus:outline-none">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+
+                <!-- Desktop menu -->
+                <div class="hidden md:flex space-x-6">
+                    <a href="{% url 'blog:home' %}" class="{% if request.path == '/' %}text-blue-400{% else %}hover:text-blue-400 transition{% endif %}">Главная</a>
+                    <a href="{% url 'blog:articles' %}" class="{% if 'articles' in request.path %}text-blue-400{% else %}hover:text-blue-400 transition{% endif %}">Статьи</a>
+                    <a href="{% url 'blog:projects' %}" class="{% if 'projects' in request.path %}text-blue-400{% else %}hover:text-blue-400 transition{% endif %}">Проекты</a>
+                    <a href="{% url 'blog:about' %}" class="{% if 'about' in request.path %}text-blue-400{% else %}hover:text-blue-400 transition{% endif %}">Обо мне</a>
+                </div>
+            </div>
+
+            <!-- Mobile menu -->
+            <div id="mobile-menu" class="hidden md:hidden mt-4">
+                <div class="flex flex-col space-y-4">
+                    <a href="{% url 'blog:home' %}" class="{% if request.path == '/' %}text-blue-400{% else %}text-gray-400 hover:text-blue-400 transition{% endif %}">Главная</a>
+                    <a href="{% url 'blog:articles' %}" class="{% if 'articles' in request.path %}text-blue-400{% else %}text-gray-400 hover:text-blue-400 transition{% endif %}">Статьи</a>
+                    <a href="{% url 'blog:projects' %}" class="{% if 'projects' in request.path %}text-blue-400{% else %}text-gray-400 hover:text-blue-400 transition{% endif %}">Проекты</a>
+                    <a href="{% url 'blog:about' %}" class="{% if 'about' in request.path %}text-blue-400{% else %}text-gray-400 hover:text-blue-400 transition{% endif %}">Обо мне</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto px-4 py-8">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark-secondary border-t border-gray-800 mt-auto">
+        <div class="container mx-auto px-4 py-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="text-gray-400 mb-4 md:mb-0">
+                    © 2024 ZINGIEV. Все права защищены.
+                </div>
+                <div class="flex space-x-4">
+                    <a href="https://threads.com/yazingiev/" class="text-gray-400 hover:text-blue-400 transition">Threads</a>
+                    <a href="https://github.com/zingiev/" class="text-gray-400 hover:text-blue-400 transition">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile menu script -->
+    <script>
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html> 
