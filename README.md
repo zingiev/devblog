@@ -28,7 +28,7 @@ DevBlog - это блог-платформа, разработанная на Dj
 
 1. Клонируйте репозиторий:
 ```bash
-git clone [URL репозитория]
+git clone https://github.com/zingiev/devblog.git
 cd devblog
 ```
 
