@@ -3,7 +3,7 @@
 [![Python Version](https://img.shields.io/badge/python-3.x-blue.svg)](https://www.python.org/)
 [![Django Version](https://img.shields.io/badge/django-4.2.21-green.svg)](https://www.djangoproject.com/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Статус](https://img.shields.io/badge/статус-в%20Закончен-green.svg)]()
+[![Статус](https://img.shields.io/badge/статус-%20закончен-green.svg)]()
 
 DevBlog - это блог-платформа, разработанная на Django, которая позволяет создавать и публиковать статьи с поддержкой форматированного текста, изображений и тегов.
 
